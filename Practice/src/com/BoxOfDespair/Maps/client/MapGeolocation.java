@@ -15,6 +15,8 @@
  */
 package com.BoxOfDespair.Maps.client;
 
+
+
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Document;
@@ -27,6 +29,8 @@ import com.google.maps.gwt.client.GoogleMap;
 import com.google.maps.gwt.client.LatLng;
 import com.google.maps.gwt.client.MapOptions;
 import com.google.maps.gwt.client.MapTypeId;
+import com.google.maps.gwt.client.Marker;
+import com.google.maps.gwt.client.MarkerOptions;
 
 /**
  * Java/GWT-binding version of sample at
@@ -39,6 +43,7 @@ public class MapGeolocation implements EntryPoint {
   private static final LatLng NEW_YORK = LatLng.create(40.69847032728747,
       -73.9514422416687);
   private static final LatLng SIBERIA = LatLng.create(60, 105);
+  private static final LatLng VANCOUVER = LatLng.create(49.2500, -123.1000);
 
   private Boolean browserSupportFlag;
   private LatLng initialLocation;
@@ -64,6 +69,11 @@ public class MapGeolocation implements EntryPoint {
               initialLocation = LatLng.create(coords.getLatitude(),
                   coords.getLongitude());
               map.setCenter(initialLocation);
+              MarkerOptions newMarkerOpts = MarkerOptions.create();
+              newMarkerOpts.setPosition(initialLocation);
+              newMarkerOpts.setMap(map);
+              newMarkerOpts.setTitle("Geomapped Location");
+              Marker.create(newMarkerOpts);
             }
 
             @Override
@@ -76,6 +86,7 @@ public class MapGeolocation implements EntryPoint {
       handleNoGeolocation(browserSupportFlag);
     }
   }
+  
 
   private void handleNoGeolocation(boolean errorFlag) {
     if (errorFlag == true) {
